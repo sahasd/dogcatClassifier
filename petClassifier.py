@@ -5,18 +5,17 @@ from keras.layers import Activation, Dropout, Flatten, Dense
 from keras import backend as K
 import numpy as np
 
-img_width, img_height = 150,150
-train_dir = './data/train'
-test_dir  = './data/test'
+data_config = ImageDataGenerator(
+	rescale=1./255, 
+	horizontal_flip=True,
+	vertical_flip=True,
+	rotation=40)
 
-img = load_img('data/train/cats/cat.0.jpg')  # this is a PIL image
-x = img_to_array(img)  # this is a Numpy array with shape (3, 150, 150)
-x = x.reshape((1,) + x.shape)  # this is a Numpy array with shape (1, 3, 150, 150)
+train_data = train_datagen.flow_from_directory(
+        'data/train',
+        target_size=(150, 150),
+        batch_size=32,
+        class_mode='binary')
 
-# the .flow() command below generates batches of randomly transformed images
-# and saves the results to the `preview/` directory
-i = 0
-for batch in datagen.flow(x, batch_size=1, save_to_dir='preview', save_prefix='cat', save_format='jpeg'):
-    i += 1
-    if i > 20:
-        break 
+print(train_data[0])
+
