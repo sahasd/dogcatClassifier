@@ -16,7 +16,7 @@ data_config = ImageDataGenerator(
 train_data = data_config.flow_from_directory(
         'data/train',
         target_size=(150, 150),
-        batch_size=500,
+        batch_size=5000,
         class_mode='binary')
 (X_train, y_train) = train_data.next()
 print(len(X_train))
